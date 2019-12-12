@@ -16,9 +16,23 @@ public class Module {
     }
 
     ArrayList<Module> modules = new ArrayList<>();
+    ArrayList<Module> owners = new ArrayList<>();
 
     Module addModule(Module module) {
         modules.add(module);
+        module.owners.add(this);
+        return module;
+    }
+
+    Module removeModule(Module module) {
+        modules.remove(module);
+        module.owners.remove(this);
+        return module;
+    }
+
+    Module removeOwner(Module module) {
+        owners.remove(module);
+        module.modules.remove(this);
         return module;
     }
 
@@ -38,23 +52,16 @@ public class Module {
         return getClass().getSimpleName();
     }
 
+    Module getModuleWithClassName(String name) {
+        return getModulesWithClassName(name).get(0);
+    }
+
     ArrayList<Module> getModulesWithClassName(String name) {
         ArrayList<Module> result = new ArrayList<>();
         for (Module module :
                 modules) {
             System.out.println(module.getClassName());
             if (module.getClassName().equals(name)) {
-                result.add(module);
-            }
-        }
-        return result;
-    }
-
-    ArrayList<Module> getOwners() {
-        ArrayList<Module> result = new ArrayList<>();
-        for (Module module :
-                list) {
-            if (module.modules.contains(this)) {
                 result.add(module);
             }
         }

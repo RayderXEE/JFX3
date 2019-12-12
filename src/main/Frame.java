@@ -34,12 +34,18 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
         },0,10);
 
         Unit unit1 = new Unit();
-        unit1.location.setXY(100,100);
+        unit1.getLocation().setXY(100,100);
 
         Unit unit2 = new Unit();
-        unit2.location.setXY(200,200);
+        unit2.getLocation().setXY(200,200);
 
-        unit1.location.target = unit2.location;
+        unit1.getLocation().target = unit2.getLocation();
+
+        Unit u = (Unit) unit1.getLocation().owners.get(0);
+
+        unit1.removeModule(unit1.getLocation());
+
+        u.getLocation().target = new Location().setXY(500,500);
 
     }
 
