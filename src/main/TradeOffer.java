@@ -8,51 +8,32 @@ public class TradeOffer {
     int count;
 
     int Trade(TradeOffer tradeOffer) {
-        if (buyOrSell == 0) {
-            return buyFrom(tradeOffer);
+        TradeOffer buyOffer;
+        TradeOffer sellOffer;
+        if (buyOrSell == 0 && tradeOffer.buyOrSell == 1) {
+            buyOffer = this;
+            sellOffer = tradeOffer;
+        } else {
+            buyOffer = tradeOffer;
+            sellOffer = this;
         }
-        if (buyOrSell == 1) {
-            return sellTo(tradeOffer);
-        }
-        return 0;
+
+        if (!buyOffer.item.name.equals(sellOffer.item.name)) return 0;
+        if (buyOffer.price < sellOffer.price) return 0;
+
+        int price = sellOffer.price;
+        int count = Math.min(buyOffer.count, sellOffer.count);
+        count = Math.min(count, buyOffer.getItems().getGold().count/price);
+        count = Math.min(count, sellOffer.getItems().getItem(sellOffer.item.name).count);
+        buyOffer.getItems().getGold().giveTo(sellOffer.getItems(), count*price);
+        sellOffer.item.giveTo(buyOffer.getItems(), count);
+
+        return count;
     }
 
-    int getCountCanBuy() {
-        return (getTraderItems().getGold().count >= getTotalPrice()) ? count : getTraderItems().getGold().count/price;
-    }
 
-    int getCountCanBuyFrom(TradeOffer tradeOffer) {
-        return Math.min(getCountCanBuy(), tradeOffer.getCountCanSell());
-    }
-
-    int getCountCanSell() {
-        return (item.count >= count) ? count : item.count;
-    }
-
-    int sellTo(TradeOffer tradeOffer) {
-        int m = Math.min(getCountCanSell(), tradeOffer.getCountCanBuy());
-        this.item.giveTo(tradeOffer.getTraderItems(), m);
-        tradeOffer.getTraderItems().getGold().giveTo(this.getTraderItems(), m*price);
-        return m;
-    }
-
-    int buyFrom(TradeOffer tradeOffer) {
-        int m = Math.min(getCountCanBuy(), tradeOffer.getCountCanSell());
-        tradeOffer.getTraderItems().getItem(this.item.name).giveTo(this.getTraderItems(), m);
-        getTraderItems().getGold().giveTo(tradeOffer.getTraderItems(), m*price);
-        return m;
-    }
-
-    Items getTraderItems() {
+    Items getItems() {
         return (Items) this.item.getOwner();
-    }
-
-    int getTotalPrice() {
-        return count * price;
-    }
-
-    int minCount(TradeOffer tradeOffer) {
-        return Math.min(count, tradeOffer.count);
     }
 
 }
