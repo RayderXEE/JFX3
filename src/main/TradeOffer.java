@@ -1,13 +1,37 @@
 package main;
 
-public class TradeOffer {
+import java.util.ArrayList;
+
+public class TradeOffer extends Module{
+
+    static ArrayList<TradeOffer> list = new ArrayList<>();
 
     Item item;
     int buyOrSell;
     int price;
     int count;
 
-    int Trade(TradeOffer tradeOffer) {
+    public TradeOffer() {
+        super();
+        list.add(this);
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if (count == 0) {
+            list.remove(this);
+            return;
+        }
+        for (TradeOffer tradeOffer :
+                list) {
+            if (tradeOffer != this) {
+                trade(tradeOffer);
+            }
+        }
+    }
+
+    int trade(TradeOffer tradeOffer) {
         TradeOffer buyOffer;
         TradeOffer sellOffer;
         if (buyOrSell == 0 && tradeOffer.buyOrSell == 1) {
@@ -27,6 +51,9 @@ public class TradeOffer {
         count = Math.min(count, sellOffer.getItems().getItem(sellOffer.item.name).count);
         buyOffer.getItems().getGold().giveTo(sellOffer.getItems(), count*price);
         sellOffer.item.giveTo(buyOffer.getItems(), count);
+
+        buyOffer.count -= count;
+        sellOffer.count -= count;
 
         return count;
     }
