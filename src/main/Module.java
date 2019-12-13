@@ -21,19 +21,25 @@ public class Module {
     Module addModule(Module module) {
         modules.add(module);
         module.owners.add(this);
-        return module;
+        return this;
+    }
+
+    Module addOwner(Module module) {
+        module.modules.add(this);
+        owners.add(module);
+        return this;
     }
 
     Module removeModule(Module module) {
         modules.remove(module);
         module.owners.remove(this);
-        return module;
+        return this;
     }
 
     Module removeOwner(Module module) {
-        owners.remove(module);
         module.modules.remove(this);
-        return module;
+        owners.remove(module);
+        return this;
     }
 
     public Module() {
@@ -50,6 +56,10 @@ public class Module {
 
     String getClassName() {
         return getClass().getSimpleName();
+    }
+
+    Module getOwner() {
+        return owners.get(0);
     }
 
     Module getModuleWithClassName(String name) {

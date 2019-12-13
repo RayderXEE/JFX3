@@ -7,7 +7,7 @@ public class Items extends Module {
     ArrayList<Item> itemList = new ArrayList<>();
 
     public Items() {
-        itemList.add(new Item().setName("Gold"));
+        itemList.add((Item) new Item().setName("Gold").addOwner(this));
     }
 
     Item getItem(String name) {
@@ -18,6 +18,10 @@ public class Items extends Module {
             }
         }
         return null;
+    }
+
+    Item getGold() {
+        return getItem("Gold");
     }
 
 }
