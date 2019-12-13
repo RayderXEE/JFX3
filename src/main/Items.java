@@ -8,6 +8,7 @@ public class Items extends Module {
 
     public Items() {
         itemList.add((Item) new Item().setName("Gold").addOwner(this));
+        itemList.add((Item) new Item().setName("Wood").addOwner(this));
     }
 
     Item getItem(String name) {

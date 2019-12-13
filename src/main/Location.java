@@ -45,6 +45,13 @@ public class Location extends Module {
         }
     }
 
+    boolean isTouching(Location location) {
+        if (getDistance(location) <= radius + location.radius + 1) {
+            return true;
+        }
+        return false;
+    }
+
     boolean isUnderMouse() {
         if (getDistance(Frame.mouseXY) <= radius) return true;
         return false;

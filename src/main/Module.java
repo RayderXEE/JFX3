@@ -72,7 +72,6 @@ public class Module {
         ArrayList<Module> result = new ArrayList<>();
         for (Module module :
                 modules) {
-            System.out.println(module.getClassName());
             if (module.getClassName().equals(name)) {
                 result.add(module);
             }

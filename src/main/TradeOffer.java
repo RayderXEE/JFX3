@@ -23,9 +23,12 @@ public class TradeOffer extends Module{
             list.remove(this);
             return;
         }
+        Location l1 = (Location) this.getItems().getOwner().getModuleWithClassName("Location");
+
         for (TradeOffer tradeOffer :
                 list) {
-            if (tradeOffer != this) {
+            Location l2 = (Location) tradeOffer.getItems().getOwner().getModuleWithClassName("Location");
+            if (tradeOffer != this) if (l1.isTouching(l2)){
                 trade(tradeOffer);
             }
         }
@@ -55,6 +58,8 @@ public class TradeOffer extends Module{
         buyOffer.count -= count;
         sellOffer.count -= count;
 
+        System.out.println("TradeOffer " + item.name + " " + price + " " + count);
+
         return count;
     }
 
@@ -63,4 +68,23 @@ public class TradeOffer extends Module{
         return (Items) this.item.getOwner();
     }
 
+    public TradeOffer setItem(Item item) {
+        this.item = item;
+        return this;
+    }
+
+    public TradeOffer setBuyOrSell(int buyOrSell) {
+        this.buyOrSell = buyOrSell;
+        return this;
+    }
+
+    public TradeOffer setPrice(int price) {
+        this.price = price;
+        return this;
+    }
+
+    public TradeOffer setCount(int count) {
+        this.count = count;
+        return this;
+    }
 }
