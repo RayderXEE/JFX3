@@ -53,7 +53,9 @@ public class Module {
     }
 
     Module getModuleWithClassName(String name) {
-        return getModulesWithClassName(name).get(0);
+        ArrayList<Module> modulesWithSameName = getModulesWithClassName(name);
+        if (modulesWithSameName.size() > 0) return getModulesWithClassName(name).get(0);
+        return null;
     }
 
     ArrayList<Module> getModulesWithClassName(String name) {
