@@ -28,13 +28,21 @@ public class TradeOffer extends Module{
         for (TradeOffer tradeOffer :
                 list) {
             Location l2 = (Location) tradeOffer.getItems().getOwner().getModuleWithClassName("Location");
-            if (tradeOffer != this) if (l1.isTouching(l2)){
-                trade(tradeOffer);
+            if (tradeOffer != this) {
+                if (l1.isTouching(l2)) {
+                    trade(tradeOffer);
+                } else {
+
+                }
             }
         }
     }
 
     int trade(TradeOffer tradeOffer) {
+        return trade(tradeOffer, false);
+    }
+
+    int trade(TradeOffer tradeOffer, boolean checkMode) {
         TradeOffer buyOffer;
         TradeOffer sellOffer;
         if (buyOrSell == 0 && tradeOffer.buyOrSell == 1) {
@@ -52,6 +60,9 @@ public class TradeOffer extends Module{
         int count = Math.min(buyOffer.count, sellOffer.count);
         count = Math.min(count, buyOffer.getItems().getGold().count/price);
         count = Math.min(count, sellOffer.getItems().getItem(sellOffer.item.name).count);
+
+        if (checkMode == true) return count;
+
         buyOffer.getItems().getGold().giveTo(sellOffer.getItems(), count*price);
         sellOffer.item.giveTo(buyOffer.getItems(), count);
 

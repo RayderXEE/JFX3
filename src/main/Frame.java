@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 public class Frame extends JFrame implements MouseListener, MouseMotionListener, KeyListener {
 
     public  static Frame frame;
@@ -42,11 +41,9 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
         unit1.getItems().getGold().setCount(50);
         unit2.getItems().getItem("Wood").setCount(20);
 
-        new TradeOffer().setItem(unit1.getItems().getItem("Wood")).setBuyOrSell(0).setPrice(3).setCount(10);
-        new TradeOffer().setItem(unit2.getItems().getItem("Wood")).setBuyOrSell(1).setPrice(2).setCount(20);
-
-        unit1.getLocation().target = unit2.getLocation();
-
+        Unit unit3 = new Unit();
+        unit3.getLocation().setXY(150,100);
+        unit3.addModule(new OrderTest().setLocations(unit1.getLocation(), unit2.getLocation()));
     }
 
     public Frame() throws HeadlessException {

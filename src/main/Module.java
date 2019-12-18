@@ -15,6 +15,8 @@ public class Module {
         Frame.mousePressed = 0;
     }
 
+    boolean wasFirstUpdate = false;
+
     ArrayList<Module> modules = new ArrayList<>();
     ArrayList<Module> owners = new ArrayList<>();
 
@@ -47,7 +49,16 @@ public class Module {
     }
 
     public void update() {
+        if (wasFirstUpdate == false) {
+            wasFirstUpdate = true;
+            firstUpdate();
+        }
+
         if (Frame.mousePressed > 0) mousePressed();
+    }
+
+    public void firstUpdate() {
+
     }
 
     public void mousePressed() {
