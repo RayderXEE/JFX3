@@ -23,11 +23,11 @@ public class TradeOffer extends Module{
             list.remove(this);
             return;
         }
-        Location l1 = (Location) this.getItems().getOwner().getModuleWithClassName("Location");
+        Location l1 = (Location) this.getItems().owner.getModuleWithClassName("Location");
 
         for (TradeOffer tradeOffer :
                 list) {
-            Location l2 = (Location) tradeOffer.getItems().getOwner().getModuleWithClassName("Location");
+            Location l2 = (Location) tradeOffer.getItems().owner.getModuleWithClassName("Location");
             if (tradeOffer != this) {
                 if (l1.isTouching(l2)) {
                     trade(tradeOffer);
@@ -76,7 +76,7 @@ public class TradeOffer extends Module{
 
 
     Items getItems() {
-        return (Items) this.item.getOwner();
+        return (Items) this.item.owner;
     }
 
     public TradeOffer setItem(Item item) {

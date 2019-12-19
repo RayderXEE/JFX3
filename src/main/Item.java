@@ -15,6 +15,11 @@ public class Item extends Module {
         return this;
     }
 
+    public Item changeCount(int value) {
+        this.count += value;
+        return this;
+    }
+
     int giveTo(Items items, int count) {
         int countCanTransfer = (count > this.count) ? this.count : count;
         this.count -= countCanTransfer;

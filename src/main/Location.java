@@ -2,8 +2,12 @@ package main;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Location extends Module {
+
+    static ArrayList<Location> list = new ArrayList<>();
 
     static Location selected;
 
@@ -16,13 +20,21 @@ public class Location extends Module {
     double xStep, yStep;
     double stepCount;
     boolean visible;
+    Color color = Color.black;
+
+    public Location() {
+        super();
+        list.add(this);
+    }
 
     @Override
     public void update() {
         super.update();
         moving();
         if (visible)  {
+            Frame.frame.ig.setColor(color);
             Frame.frame.ig.drawOval((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
+            Frame.frame.ig.setColor(Color.black);
             if (isSelected()) Frame.frame.ig.drawRect((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
         }
     }
@@ -104,6 +116,26 @@ public class Location extends Module {
             xStep = 0;
             yStep = 0;
         }
+    }
+
+    ArrayList<Unit> getDistanceMap(ArrayList<Unit> units) {
+        ArrayList<Unit> result = new ArrayList<>();
+
+        for (Unit unit :
+                units) {
+            result.add(unit);
+        }
+
+        result.sort(new Comparator<Unit>() {
+            @Override
+            public int compare(Unit o1, Unit o2) {
+                double distance1 = getDistance(o1.getLocation());
+                double distance2 = getDistance(o2.getLocation());
+                return distance1 < distance2 ? -1 : distance1 == distance2 ? 0 : 1;
+            }
+        });
+
+        return result;
     }
 
     ////////////////////////////////////////

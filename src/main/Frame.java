@@ -43,7 +43,29 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
 
         Unit unit3 = new Unit();
         unit3.getLocation().setXY(150,100);
-        unit3.addModule(new OrderTest().setLocations(unit1.getLocation(), unit2.getLocation()));
+        //unit3.addModule(new OrderTest().setLocations(unit1.getLocation(), unit2.getLocation()));
+
+        Mine mine1 = new Mine();
+        mine1.getLocation().setXY(300, 200);
+        mine1.getItems().getGold().changeCount(500);
+        int mineGoldCount = mine1.getItems().getGold().count;
+
+        Mine mine2 = new Mine();
+        mine2.getLocation().setXY(400, 200);
+        mine2.getItems().getGold().changeCount(500);
+
+        ArrayList<Unit> mineList = new ArrayList<>();
+        for (Mine mine :
+                Mine.list) {
+            Unit unit = (Unit) mine;
+            mineList.add(unit);
+        }
+
+        ArrayList<Unit> unit1MineDistanceMap = unit1.getLocation().getDistanceMap(mineList);
+        unit1.getLocation().target = unit1MineDistanceMap.get(0).getLocation();
+
+
+        System.out.println(mineGoldCount);
     }
 
     public Frame() throws HeadlessException {

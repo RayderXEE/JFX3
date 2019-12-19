@@ -9,7 +9,7 @@ public class OrderTest extends Order {
     public void update() {
         super.update();
 
-        Unit owner = (Unit) getOwner();
+        Unit owner = (Unit) this.owner;
         if (owner.getLocation().isTouching(location1)) {
             owner.getLocation().target = location2;
         }
@@ -21,7 +21,8 @@ public class OrderTest extends Order {
     @Override
     public void firstUpdate() {
         super.firstUpdate();
-        Unit owner = (Unit) getOwner();
+        Mine mine = null;
+        Unit owner = (Unit) this.owner;
         owner.getLocation().target = location1;
     }
 

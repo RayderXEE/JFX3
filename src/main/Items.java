@@ -7,8 +7,8 @@ public class Items extends Module {
     ArrayList<Item> itemList = new ArrayList<>();
 
     public Items() {
-        itemList.add((Item) new Item().setName("Gold").addOwner(this));
-        itemList.add((Item) new Item().setName("Wood").addOwner(this));
+        itemList.add((Item) new Item().setName("Gold").setOwner(this));
+        itemList.add((Item) new Item().setName("Wood").setOwner(this));
     }
 
     Item getItem(String name) {

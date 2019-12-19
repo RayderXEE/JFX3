@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class Module {
 
     public static ArrayList<Module> list = new ArrayList<>();
+    public static Module game = new Game();
 
     public static void updateAll() {
         if (list.size() > 0) for (int i = 0; i < list.size(); i++) {
@@ -18,34 +19,40 @@ public class Module {
     boolean wasFirstUpdate = false;
 
     ArrayList<Module> modules = new ArrayList<>();
-    ArrayList<Module> owners = new ArrayList<>();
+    Module owner;
 
     Module addModule(Module module) {
         modules.add(module);
-        module.owners.add(this);
+        module.owner = this;
         return this;
     }
 
-    Module addOwner(Module module) {
+    Module setOwner(Module module) {
+        if (owner != null) {
+            owner.modules.remove(this);
+        }
         module.modules.add(this);
-        owners.add(module);
+        owner = module;
         return this;
     }
 
     Module removeModule(Module module) {
         modules.remove(module);
-        module.owners.remove(this);
+        module.owner = null;
         return this;
     }
 
     Module removeOwner(Module module) {
         module.modules.remove(this);
-        owners.remove(module);
+        owner = null;
         return this;
     }
 
     public Module() {
         list.add(this);
+        if (!(this instanceof Game)) {
+            Module.game.addModule(this);
+        }
     }
 
     public void update() {
@@ -67,10 +74,6 @@ public class Module {
 
     String getClassName() {
         return getClass().getSimpleName();
-    }
-
-    Module getOwner() {
-        return owners.get(0);
     }
 
     Module getModuleWithClassName(String name) {
