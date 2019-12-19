@@ -34,16 +34,19 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
 
         Unit unit1 = new Unit();
         unit1.getLocation().setXY(100,100);
+        unit1.getItems().getGold().changeCount(500);
 
         Unit unit2 = new Unit();
         unit2.getLocation().setXY(200,200);
+        unit2.getItems().getGold().changeCount(500);
 
-        unit1.getItems().getGold().setCount(50);
-        unit2.getItems().getItem("Wood").setCount(20);
+        //unit1.getItems().getGold().setCount(50);
+        //unit2.getItems().getItem("Wood").setCount(20);
 
         Unit unit3 = new Unit();
         unit3.getLocation().setXY(150,100);
-        //unit3.addModule(new OrderTest().setLocations(unit1.getLocation(), unit2.getLocation()));
+        //unit3.getItems().getGold().changeCount(500);
+        unit3.addModule(new OrderTest().setLocations(unit1.getLocation(), unit2.getLocation()));
 
         Mine mine1 = new Mine();
         mine1.getLocation().setXY(300, 200);
@@ -62,8 +65,7 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
         }
 
         ArrayList<Unit> unit1MineDistanceMap = unit1.getLocation().getDistanceMap(mineList);
-        unit1.getLocation().target = unit1MineDistanceMap.get(0).getLocation();
-
+        //unit1.getLocation().target = unit1MineDistanceMap.get(0).getLocation();
 
         System.out.println(mineGoldCount);
     }

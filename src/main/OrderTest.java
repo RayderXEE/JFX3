@@ -10,12 +10,22 @@ public class OrderTest extends Order {
         super.update();
 
         Unit owner = (Unit) this.owner;
+        Unit unit1 = (Unit) location1.owner;
+        Unit unit2 = (Unit) location2.owner;
         if (owner.getLocation().isTouching(location1)) {
-            owner.getLocation().target = location2;
+            unit1.getItems().getGold().giveTo(owner.getItems(), 1);
+            if (owner.getItems().getGold().count == 100 || unit1.getItems().getGold().count == 0) {
+                owner.getLocation().target = location2;
+            }
+
         }
         if (owner.getLocation().isTouching(location2)) {
-            owner.getLocation().target = location1;
+            owner.getItems().getGold().giveTo(unit2.getItems(), 1);
+            if (owner.getItems().getGold().count == 0) {
+                owner.getLocation().target = location1;
+            }
         }
+        System.out.println(owner.getItems().getGold().count);
     }
 
     @Override

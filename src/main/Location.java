@@ -31,9 +31,11 @@ public class Location extends Module {
     public void update() {
         super.update();
         moving();
+        Unit owner = (Unit) this.owner;
         if (visible)  {
             Frame.frame.ig.setColor(color);
             Frame.frame.ig.drawOval((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
+            Frame.frame.ig.drawString(String.valueOf(owner.getItems().getGold().count), (int)(x-radius), (int)(y-radius));
             Frame.frame.ig.setColor(Color.black);
             if (isSelected()) Frame.frame.ig.drawRect((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
         }
