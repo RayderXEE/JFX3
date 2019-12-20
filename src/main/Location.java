@@ -35,7 +35,14 @@ public class Location extends Module {
         if (visible)  {
             Frame.frame.ig.setColor(color);
             Frame.frame.ig.drawOval((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
-            Frame.frame.ig.drawString(String.valueOf(owner.getItems().getGold().count), (int)(x-radius), (int)(y-radius));
+            //Frame.frame.ig.drawString(String.valueOf(owner.getItems().getGold().count), (int)(x-radius), (int)(y-radius));
+            int i = 0;
+            for (Item item :
+                    owner.getItems().itemList) {
+                if (item.count > 0) {
+                    Frame.frame.ig.drawString(item.name + " " + String.valueOf(item.count), (int)(x-radius), (int)(y-radius-(i++*10)));
+                }
+            }
             Frame.frame.ig.setColor(Color.black);
             if (isSelected()) Frame.frame.ig.drawRect((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
         }
