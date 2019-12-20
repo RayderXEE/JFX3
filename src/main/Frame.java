@@ -36,10 +36,12 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
         unit1.getLocation().setXY(100,100);
         unit1.getItems().getGold().changeCount(500);
         unit1.getItems().getItem("Wood").changeCount(100);
+        unit1.addModule(new Trader());
 
         Unit unit2 = new Unit();
         unit2.getLocation().setXY(200,200);
         unit2.getItems().getGold().changeCount(500);
+        unit2.getItems().getItem("Wood").changeCount(100).setPrice(2);
 
         //unit1.getItems().getGold().setCount(50);
         //unit2.getItems().getItem("Wood").setCount(20);
