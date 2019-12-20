@@ -8,9 +8,9 @@ public class Item extends Module {
 
     String name;
     int count;
-    //int price = 1000000;
     int buyPrice = 0;
     int sellPrice = 1000000;
+    String currency = "Gold";
 
     Item tradingItem;
 
@@ -27,18 +27,20 @@ public class Item extends Module {
     }
 
     void trading() {
-        Unit owner = (Unit) this.owner.owner;
+        if (name.equals(currency)) return;
         if (buyPrice < 0) return;
+        Unit owner = (Unit) this.owner.owner;
         if (tradingItem == null) for (Item item :
                 list) {
-            if (!item.name.equals("Gold") && item != this && item.name.equals(name) && item.count > 0 && item.sellPrice <= buyPrice
-            && owner.getItems().getGold().count >= item.sellPrice) {
+            if (item != this && item.name.equals(name) && item.count > 0 && item.currency.equals(currency) && item.sellPrice <= buyPrice
+            && owner.getItems().getItem(currency).count >= item.sellPrice) {
                 tradingItem = item;
             }
         } else {
-            if (tradingItem.count > 0 && tradingItem.sellPrice <= buyPrice && owner.getItems().getGold().count >= tradingItem.sellPrice) {
+            if (tradingItem.count > 0 && tradingItem.currency.equals(currency) && tradingItem.sellPrice <= buyPrice
+                    && owner.getItems().getItem(currency).count >= tradingItem.sellPrice) {
                 tradingItem.giveTo(owner.getItems(),1);
-                owner.getItems().getGold().giveTo((Items) tradingItem.owner, tradingItem.sellPrice);
+                owner.getItems().getItem(currency).giveTo((Items) tradingItem.owner, tradingItem.sellPrice);
             } else {
                 tradingItem = null;
             }
