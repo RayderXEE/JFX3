@@ -70,6 +70,15 @@ public class Frame extends JFrame implements MouseListener, MouseMotionListener,
         //unit1.getLocation().target = unit1MineDistanceMap.get(0).getLocation();
 
         System.out.println(mineGoldCount);
+
+        ArrayList<String> list1 = new ArrayList<>();
+        String zipRequest = "";
+        String[] splZipRequest = zipRequest.split(";");
+        System.out.println(splZipRequest[0]);
+        //list1.le
+
+        ArrayList<String> strings = new ArrayList<>();
+        strings.clear();
     }
 
     public Frame() throws HeadlessException {

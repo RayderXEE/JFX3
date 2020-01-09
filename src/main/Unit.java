@@ -10,6 +10,8 @@ public class Unit extends Module {
         getLocation().visible = true;
 
         addModule(new Items());
+
+        //System.out.println(getLocation().owner.getClassName());
     }
 
     Location getLocation() {

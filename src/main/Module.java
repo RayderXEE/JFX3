@@ -22,6 +22,9 @@ public class Module {
     Module owner;
 
     Module addModule(Module module) {
+        if (module.owner != null) {
+            module.owner.modules.remove(module);
+        }
         modules.add(module);
         module.owner = this;
         return this;

@@ -31,7 +31,8 @@ public class Location extends Module {
     public void update() {
         super.update();
         moving();
-        Unit owner = (Unit) this.owner;
+        Unit owner = null;
+        if (this.owner instanceof Unit) owner = (Unit) this.owner;
         if (visible)  {
             Frame.frame.ig.setColor(color);
             Frame.frame.ig.drawOval((int) (x-radius),(int)(y-radius),(int)(radius*2),(int)(radius*2));
@@ -51,12 +52,8 @@ public class Location extends Module {
     @Override
     public void mousePressed() {
         super.mousePressed();
-        if (visible) if (isUnderMouse()) {
+        if (visible && isUnderMouse()) {
             mousePressedThis();
-        } else {
-            if (Frame.mousePressed == 1) {
-                selected = null;
-            }
         }
 
         if (isSelected()) {

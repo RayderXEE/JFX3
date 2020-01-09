@@ -32,6 +32,7 @@ public class Item extends Module {
         Unit owner = (Unit) this.owner.owner;
         if (tradingItem == null) for (Item item :
                 list) {
+
             if (item != this && item.name.equals(name) && item.count > 0 && item.currency.equals(currency) && item.sellPrice <= buyPrice
             && owner.getItems().getItem(currency).count >= item.sellPrice) {
                 tradingItem = item;
