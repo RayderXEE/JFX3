@@ -16,7 +16,10 @@ public class Module {
         }
     }
 
-    public Module() {
+    public Module owner;
+
+    public Module(Module owner) {
+        this.owner = owner;
         list.add(this);
     }
 
