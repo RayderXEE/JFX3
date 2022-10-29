@@ -6,4 +6,9 @@ public class Game extends Module {
 
     }
 
+    @Override
+    void update() {
+        super.update();
+        Frame.frame.ig.drawOval(100,100,20,20);
+    }
 }
